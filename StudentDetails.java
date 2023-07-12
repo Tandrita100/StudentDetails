@@ -4,29 +4,45 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+
 public class StudentDetails {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
+        Scanner File = new Scanner(System.in);
+        Scanner idNum = new Scanner(System.in);
+        Scanner Gmail = new Scanner(System.in);
 
         System.out.println("Enter the number of students: ");
-        int studentnum = scan.nextInt();
-        scan.nextLine();
+        int studentNum = scan.nextInt();
+        System.out.println("Enter your file name with Extension");
 
       try {
-          FileWriter writer = new FileWriter("Details.csv");
+          if (File.hasNextInt()) {
+              System.out.println("Invalid input. String expected.");
+              return;
+          }
+          String FileName = scan.nextLine();
+          FileWriter writer = new FileWriter(File.nextLine());
 
-          for (int i = 0; i < studentnum; i++) {
+          for (int i = 0; i < studentNum; i++) {
               System.out.println("\nEnter the details of student" + (i + 1));
 
               System.out.println("Enter the Name: ");
               String Name = scan.nextLine();
 
               System.out.println("Enter the Id: ");
-              int Id = scan.nextInt();
-              scan.nextLine();
+              if (!idNum.hasNextInt()) {
+                  System.out.println("Invalid input. Integer expected.");
+                  return;
+              }
+              String Id = idNum.nextLine();
 
               System.out.println("Enter the emailID: ");
-              String Email = scan.nextLine();
+              String Email = Gmail.nextLine();
+              if (!Email.endsWith("@gmail.com")) {
+                  System.out.println("Invalid input. Email must end with '@gmail.com'.");
+                  return;
+              }
 
               String studentDetails = Name + "," + "," + Id + "," + "," + Email + "\n";
               writer.write(studentDetails);
